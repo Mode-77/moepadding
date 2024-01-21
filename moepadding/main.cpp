@@ -22,6 +22,24 @@ std::string extractAll(std::FILE* file)
     return result;
 }
 
+std::FILE* copyFile(std::FILE* source, std::string const& filename)
+{
+    assert(source);
+    std::FILE* newFile = openFile(filename.c_str(), "w");
+    if (newFile == nullptr)
+    {
+        return nullptr;
+    }
+    std::string sourceText(extractAll(source));
+    int writeSuccess = fputs(sourceText.c_str(), newFile);
+    if (writeSuccess < 0)
+    {
+        fclose(newFile);
+        return nullptr;
+    }
+    return newFile;
+}
+
 std::string mask(std::string const& s)
 {
     std::string result;
@@ -65,35 +83,35 @@ int main(int argc, char* argv[])
         std::cout << "Must tell me the filename\n";
         return EXIT_FAILURE;
     }
-    std::FILE* file = openFile(argv[1], "r");
-    if (file == nullptr)
+
+    std::FILE* inputFile = openFile(argv[1], "r");
+    if (inputFile == nullptr)
     {
         std::cout << "File couldn't be opened\n";
         return EXIT_FAILURE;
     }
-    std::string baseFileContents(extractAll(file));
+
+    std::string baseFileContents(extractAll(inputFile));
+    fclose(inputFile); // Done with it now.
+
     std::string masked(mask(baseFileContents));
 
-    // Create copy of the input file.
-    std::FILE* outputFile = nullptr;
-    fopen_s(&outputFile, "moeout", "w");
+    std::FILE* outputFile = openFile("moeout", "w");
     if (outputFile == nullptr)
     {
         std::cout << "Failed to create output file\n";
-        // Can't continue like this.
         return EXIT_FAILURE;
     }
 
-    // Copy the contents over.
-    int copySuccess = fputs(masked.c_str(), outputFile);
-    if (copySuccess < 0)
+    int writeSuccess = fputs(masked.c_str(), outputFile);
+    if (writeSuccess < 0)
     {
-        std::cout << "Failed to copy contents of base file\n";
+        std::cout << "Failed to write contents to output file\n";
+        fclose(outputFile);
         return EXIT_FAILURE;
     }
 
     fclose(outputFile);
-    fclose(file);
 
     return 0;
 }
