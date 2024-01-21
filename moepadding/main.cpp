@@ -22,24 +22,6 @@ std::string extractAll(std::FILE* file)
     return result;
 }
 
-std::FILE* copyFile(std::FILE* source, std::string const& filename)
-{
-    assert(source);
-    std::FILE* newFile = openFile(filename.c_str(), "w");
-    if (newFile == nullptr)
-    {
-        return nullptr;
-    }
-    std::string sourceText(extractAll(source));
-    int writeSuccess = fputs(sourceText.c_str(), newFile);
-    if (writeSuccess < 0)
-    {
-        fclose(newFile);
-        return nullptr;
-    }
-    return newFile;
-}
-
 std::string mask(std::string const& s)
 {
     std::string result;
