@@ -57,6 +57,27 @@ int main(int argc, char* argv[])
     }
     std::string baseFileContents(extractAll(file));
     std::cout << baseFileContents;
+
+    // Create copy of the input file.
+    std::FILE* outputFile = nullptr;
+    fopen_s(&outputFile, "moeout", "w");
+    if (outputFile == nullptr)
+    {
+        std::cout << "Failed to create output file\n";
+        // Can't continue like this.
+        return EXIT_FAILURE;
+    }
+
+    // Copy the contents over.
+    int copySuccess = fputs(baseFileContents.c_str(), outputFile);
+    if (copySuccess < 0)
+    {
+        std::cout << "Failed to copy contents of base file\n";
+        return EXIT_FAILURE;
+    }
+
+    fclose(outputFile);
     fclose(file);
+
     return 0;
 }
