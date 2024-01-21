@@ -19,7 +19,6 @@ std::string extractAll(std::FILE* file)
         result += character;
         character = std::fgetc(file);
     }
-    result += character;
     return result;
 }
 
