@@ -17,13 +17,13 @@ BinPackArguments: false
 
 PackConstructorInitializers: Never
 
-BreakBeforeBraces: Stroustrup
+BreakBeforeBraces: Allman
 
 AllowShortFunctionsOnASingleLine: None
 
 AccessModifierOffset: -4
 
-PointerAlignment: Right
+PointerAlignment: Left
 
 SeparateDefinitionBlocks: Always
 
