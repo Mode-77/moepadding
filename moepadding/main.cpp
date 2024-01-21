@@ -22,6 +22,23 @@ std::string extractAll(std::FILE* file)
     return result;
 }
 
+std::string mask(std::string const& s)
+{
+    std::string result;
+    for (char const& c : s)
+    {
+        if (!(c == ' ' || c == '\t' || c == '\n'))
+        {
+            result.append("x");
+        }
+        else
+        {
+            result.append(1, c);
+        }
+    }
+    return result;
+}
+
 /*
     Count non-whitespace characters
 */
@@ -55,7 +72,7 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
     std::string baseFileContents(extractAll(file));
-    std::cout << baseFileContents;
+    std::string masked(mask(baseFileContents));
 
     // Create copy of the input file.
     std::FILE* outputFile = nullptr;
@@ -68,7 +85,7 @@ int main(int argc, char* argv[])
     }
 
     // Copy the contents over.
-    int copySuccess = fputs(baseFileContents.c_str(), outputFile);
+    int copySuccess = fputs(masked.c_str(), outputFile);
     if (copySuccess < 0)
     {
         std::cout << "Failed to copy contents of base file\n";
