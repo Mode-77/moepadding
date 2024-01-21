@@ -9,6 +9,20 @@ std::FILE* openFile(char const* filename, char const* mode)
     return file;
 }
 
+std::string extractAll(std::FILE* file)
+{
+    assert(file);
+    std::string result;
+    int character = std::fgetc(file);
+    while (character != EOF)
+    {
+        result += character;
+        character = std::fgetc(file);
+    }
+    result += character;
+    return result;
+}
+
 /*
     Count non-whitespace characters
 */
@@ -41,6 +55,8 @@ int main(int argc, char* argv[])
         std::cout << "File couldn't be opened\n";
         return EXIT_FAILURE;
     }
-    std::cout << "Character count: " << characterCount(file) << "\n";
+    std::string baseFileContents(extractAll(file));
+    std::cout << baseFileContents;
+    fclose(file);
     return 0;
 }
