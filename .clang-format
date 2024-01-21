@@ -1,0 +1,64 @@
+Language: Cpp
+
+ColumnLimit: 80
+IndentWidth: 4
+UseTab: Never
+
+# Function/method declarations
+AlignAfterOpenBracket: Align
+BinPackParameters: false
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
+PenaltyReturnTypeOnItsOwnLine: 10000
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# Function/method calls
+BinPackArguments: false
+
+PackConstructorInitializers: Never
+
+BreakBeforeBraces: Stroustrup
+
+AllowShortFunctionsOnASingleLine: None
+
+AccessModifierOffset: -4
+
+PointerAlignment: Right
+
+SeparateDefinitionBlocks: Always
+
+MaxEmptyLinesToKeep: 1
+
+FixNamespaceComments: false
+
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+#AllowShortBlocksOnASingleLine: Empty # Empty
+#AllowShortIfStatementsOnASingleLine: Never # Never
+#AllowShortLoopsOnASingleLine: false
+#AllowShortCaseLabelsOnASingleLine: false
+#AllowShortEnumsOnASingleLine: true
+#AllowShortLambdasOnASingleLine: Empty
+
+#IndentCaseBlocks:     false
+#IndentCaseLabels:     true
+
+#QualifierAlignment:   Leave
+
+#IncludeBlocks:        Preserve
+#SortIncludes:         Never
+
+#SpaceAfterCStyleCast:               false
+#SpaceAfterLogicalNot:               false
+#SpaceAfterTemplateKeyword:          false
+#SpaceAroundPointerQualifiers:       Default
+#SpaceBeforeAssignmentOperators:     true
+#SpaceBeforeCaseColon:               false
+#SpaceBeforeParens:                  ControlStatements
+#SpaceBeforeRangeBasedForLoopColon:  true
+#SpaceBeforeSquareBrackets:          false
+#SpaceInEmptyBlock:                  true
+#SpaceInEmptyParentheses:            false
+#SpacesBeforeTrailingComments:       3
+#SpacesInContainerLiterals:          false
+#SpacesInSquareBrackets:             false
