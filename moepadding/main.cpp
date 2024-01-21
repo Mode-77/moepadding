@@ -2,6 +2,13 @@
 #include <cstdio>
 #include <iostream>
 
+std::FILE* openFile(char const* filename, char const* mode)
+{
+    std::FILE* file = nullptr;
+    fopen_s(&file, filename, mode);
+    return file;
+}
+
 /*
     Count non-whitespace characters
 */
@@ -28,10 +35,7 @@ int main(int argc, char* argv[])
         std::cout << "Must tell me the filename\n";
         return EXIT_FAILURE;
     }
-    std::string filename(argv[1]);
-    std::FILE* file = nullptr;
-    // Open file for reading.
-    fopen_s(&file, filename.c_str(), "r");
+    std::FILE* file = openFile(argv[1], "r");
     if (file == nullptr)
     {
         std::cout << "File couldn't be opened\n";
