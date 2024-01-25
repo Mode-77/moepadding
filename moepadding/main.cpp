@@ -330,42 +330,6 @@ std::string siftOuterScopes(std::string const& s)
         return result;
 }
 
-class StringMarkers final {
-    public:
-        StringMarkers(std::vector<std::size_t> const& v)
-            : m_markers()
-        {
-                for (std::size_t i : v) {
-                        m_markers.push_back(i);
-                }
-        }
-
-        [[nodiscard]] std::size_t peek() const
-        {
-                return m_markers.front();
-        }
-
-        void pop()
-        {
-                m_markers.pop_front();
-        }
-
-        void shift(int delta)
-        {
-                for (std::size_t& m : m_markers) {
-                        m += delta;
-                }
-        }
-
-        [[nodiscard]] bool empty() const
-        {
-                return m_markers.empty();
-        }
-
-    private:
-        std::list<std::size_t> m_markers;
-};
-
 StringMarkers findScopes(std::string const& s)
 {
         std::vector<std::size_t> result;
