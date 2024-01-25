@@ -467,8 +467,12 @@ void calculatePadding(std::string& input,
 
 int main(int argc, char* argv[])
 {
+        // Usage
+        //
+        // mpad filename padding [-w]
+
         if (argc == 1) {
-                // @Todo Need sanitization of filename?
+                // @Todo Need sanitization of filename
                 std::cout << "Must tell me the filename\n";
                 return EXIT_FAILURE;
         }
@@ -484,9 +488,8 @@ int main(int argc, char* argv[])
                 std::cout << "File couldn't be opened\n";
                 return EXIT_FAILURE;
         }
-
-        std::string baseFileContents(extractAll(inputFile)); // Verified working
-        fclose(inputFile);                                   // Done with it now
+        std::string baseFileContents(extractAll(inputFile));
+        fclose(inputFile);
 
         std::string sifted;
         sifted = siftCriticalCharacters(baseFileContents);
@@ -495,23 +498,23 @@ int main(int argc, char* argv[])
         outerScopes = siftOuterScopes(sifted);
         StringMarkers scopeMarkers = findScopes(outerScopes);
 
-        // markScopes(outerScopes, scopeMarkers);
-        // findReplaceAll(outerScopes, "x", " ");
-
         std::string const paddingAsString(argv[2]);
         // @Todo Check return value for error handling
         int const padding = std::stoi(paddingAsString);
         calculatePadding(baseFileContents, outerScopes, scopeMarkers, padding);
+        findReplaceAll(baseFileContents, "\r", "");
 
-        std::FILE* outputFile = openFile(argv[1], "w");
+        std::string outputFilename("moeout");
+        if (argc > 3 && std::string(argv[3]) == "-w") {
+                outputFilename = argv[1];
+        }
+        std::FILE* outputFile = openFile(outputFilename.c_str(), "w");
         if (outputFile == nullptr) {
                 std::cout << "Failed to create output file\n";
                 return EXIT_FAILURE;
         }
 
-        std::string outputString = baseFileContents;
-        findReplaceAll(outputString, "\r", "");
-        int writeSuccess = fputs(outputString.c_str(), outputFile);
+        int writeSuccess = fputs(baseFileContents.c_str(), outputFile);
         if (writeSuccess < 0) {
                 std::cout << "Failed to write contents to output file\n";
                 fclose(outputFile);
@@ -520,5 +523,5 @@ int main(int argc, char* argv[])
 
         fclose(outputFile);
 
-        return 0;
+        return EXIT_SUCCESS;
 }
