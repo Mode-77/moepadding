@@ -7,28 +7,6 @@
 #include <string>
 #include <vector>
 
-/**/
-/* spam */
-/* spam*/
-/*spam */
-/*spam*/
-/*              */
-/* This
-   is a
-   multiline
-   comment.
-*/
-
-/* { } ; */
-
-// { } ;
-
-char testChar1 = '{';
-char testChar2 = '}';
-char testChar3 = ';';
-
-std::string testStr1 = "{ } ; ' \" \\ / \n \t";
-
 std::FILE* openFile(char const* filename, char const* mode)
 {
         std::FILE* file = nullptr;
