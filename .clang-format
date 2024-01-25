@@ -25,9 +25,9 @@ AccessModifierOffset: -4
 
 PointerAlignment: Left
 
-SeparateDefinitionBlocks: Always
+SeparateDefinitionBlocks: Leave
 
-MaxEmptyLinesToKeep: 1
+MaxEmptyLinesToKeep: 10000
 
 FixNamespaceComments: false
 
