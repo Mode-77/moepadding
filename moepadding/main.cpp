@@ -14,6 +14,10 @@ std::FILE* openFile(char const* filename, char const* mode)
         return file;
 }
 
+
+
+
+
 std::string extractAll(std::FILE* file)
 {
         assert(file);
@@ -25,6 +29,10 @@ std::string extractAll(std::FILE* file)
         }
         return result;
 }
+
+
+
+
 
 void findReplaceAll(std::string& s,
                     std::string const& to_find,
@@ -40,6 +48,10 @@ void findReplaceAll(std::string& s,
                 found_at = s.find(to_find, found_at + to_replace.length());
         }
 }
+
+
+
+
 
 void erase_occurrences(std::string& s, std::string const& to_find, int n)
 {
@@ -57,6 +69,10 @@ void erase_occurrences(std::string& s, std::string const& to_find, int n)
         }
 }
 
+
+
+
+
 void insert_copies(std::string& s, std::string const& to_insert, int n)
 {
         assert(n >= 0);
@@ -67,6 +83,10 @@ void insert_copies(std::string& s, std::string const& to_insert, int n)
                 s.insert(0, to_insert);
         }
 }
+
+
+
+
 
 std::size_t occurrences(std::string const& s, std::string const& to_find)
 {
@@ -83,11 +103,19 @@ std::size_t occurrences(std::string const& s, std::string const& to_find)
         return result;
 }
 
+
+
+
+
 bool isWhitespace(int character)
 {
         return character == ' ' || character == '\t' || character == '\r' ||
                character == '\n';
 }
+
+
+
+
 
 void singleQuoteContext(SuperString& from, std::string& to)
 {
@@ -110,6 +138,10 @@ void singleQuoteContext(SuperString& from, std::string& to)
         }
 }
 
+
+
+
+
 void doubleQuoteContext(SuperString& from, std::string& to)
 {
         from.append_strike(to, 1);
@@ -130,6 +162,10 @@ void doubleQuoteContext(SuperString& from, std::string& to)
                 }
         }
 }
+
+
+
+
 
 void multilineCommentContext(SuperString& from, std::string& to)
 {
@@ -168,6 +204,10 @@ void multilineCommentContext(SuperString& from, std::string& to)
         }
 }
 
+
+
+
+
 void singleLineComment(SuperString& from, std::string& to)
 {
         // After the slash here
@@ -205,6 +245,10 @@ void singleLineComment(SuperString& from, std::string& to)
         }
 }
 
+
+
+
+
 void forwardSlashTree(SuperString& from, std::string& to)
 {
         /* We're at a forward slash, so we could be at a multiline comment,
@@ -224,6 +268,10 @@ void forwardSlashTree(SuperString& from, std::string& to)
         }
         // If not any of the above, what else could it be?
 }
+
+
+
+
 
 std::string siftCriticalCharacters(std::string const& s)
 {
@@ -264,6 +312,10 @@ std::string siftCriticalCharacters(std::string const& s)
         assert(result.length() == superString.length());
         return result;
 }
+
+
+
+
 
 std::string siftOuterScopes(std::string const& s)
 {
@@ -308,6 +360,10 @@ std::string siftOuterScopes(std::string const& s)
         return result;
 }
 
+
+
+
+
 StringMarkers findScopes(std::string const& s)
 {
         std::vector<std::size_t> result;
@@ -345,6 +401,10 @@ StringMarkers findScopes(std::string const& s)
         }
         return StringMarkers(result);
 }
+
+
+
+
 
 void calculatePadding(std::string& input,
                       std::string sifted,
@@ -400,6 +460,10 @@ void calculatePadding(std::string& input,
                 }
         }
 }
+
+
+
+
 
 int main(int argc, char* argv[])
 {
