@@ -63,26 +63,6 @@ void findReplaceAll(std::string& s,
         }
 }
 
-void find_replace(std::string& s,
-                  std::string const& to_find,
-                  std::string const& to_replace,
-                  int n)
-{
-        assert(n >= 0);
-        if ((n == 0) || (to_find == to_replace)) {
-                return;
-        }
-        std::size_t found_at = s.find(to_find);
-        while ((found_at != std::string::npos)) {
-                s.erase(found_at, to_find.length());
-                s.insert(found_at, to_replace);
-                if ((--n) == 0) {
-                        return;
-                }
-                found_at = s.find(to_find, found_at + to_replace.length());
-        }
-}
-
 void erase_occurrences(std::string& s, std::string const& to_find, int n)
 {
         assert(n >= 0);
@@ -350,51 +330,6 @@ std::string siftOuterScopes(std::string const& s)
         return result;
 }
 
-int getPadding(std::string const& s, int index)
-{
-        int numNewlines = 0;
-        ++index;
-        if (index >= s.length()) {
-                return -1;
-        }
-        int character = s.at(index);
-        while (character != 'x') {
-                if (character == '\n') {
-                        ++numNewlines;
-                }
-                ++index;
-                if (index >= s.length()) {
-                        break;
-                }
-                character = s.at(index);
-        }
-        assert(numNewlines > 0);
-        return numNewlines - 1;
-}
-
-/*
-    Count non-whitespace characters
-*/
-int characterCount(std::FILE* file)
-{
-        assert(file);
-        int result = 0;
-        int character = std::fgetc(file);
-        while (character != EOF) {
-                if (!(character == ' ' || character == '\t' ||
-                      character == '\n')) {
-                        ++result;
-                }
-                character = std::fgetc(file);
-        }
-        return result;
-}
-
-struct ScopeMarker final {
-        int begin;
-        int end;
-};
-
 class StringMarkers final {
     public:
         StringMarkers(std::vector<std::size_t> const& v)
@@ -468,56 +403,6 @@ StringMarkers findScopes(std::string const& s)
         }
         return StringMarkers(result);
 }
-
-void markScopes(std::string& s, StringMarkers markers)
-{
-        while (!markers.empty()) {
-                s.insert(markers.peek(), "Y");
-                markers.pop();
-                markers.shift(1);
-        }
-}
-
-std::string scopePassFilter(std::string const& s,
-                            std::vector<ScopeMarker> const& scopes)
-{
-        std::string result;
-        for (int i = 0; i < s.length(); ++i) {
-                char const& character = s.at(i);
-                if (character == ' ' || character == '\t' ||
-                    character == '\n') {
-                        result.append(1, character);
-                        continue;
-                }
-
-                for (ScopeMarker const& marker : scopes) {
-                        if (i == marker.begin || i == marker.end) {
-                                result.append(1, character);
-                                continue;
-                        }
-                }
-
-                result.append(" ");
-        }
-        return result;
-}
-
-void restore(std::string const& original, std::string& padded)
-{
-        int masterIndex = 0;
-        for (int i = 0; i < padded.length(); ++i) {
-                char& c = padded.at(i);
-                if (isWhitespace(c)) {
-                        ++masterIndex;
-                        continue;
-                }
-        }
-}
-
-struct PaddingAction final {
-        int m_index;
-        int m_deltaPadding;
-};
 
 void calculatePadding(std::string& input,
                       std::string sifted,
