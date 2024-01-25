@@ -1,7 +1,7 @@
 Language: Cpp
 
 ColumnLimit: 80
-IndentWidth: 4
+IndentWidth: 8
 UseTab: Never
 
 # Function/method declarations
@@ -17,7 +17,7 @@ BinPackArguments: false
 
 PackConstructorInitializers: Never
 
-BreakBeforeBraces: Allman
+BreakBeforeBraces: Stroustrup
 
 AllowShortFunctionsOnASingleLine: None
 
