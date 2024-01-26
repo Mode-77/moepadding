@@ -494,8 +494,8 @@ int cStringToNonnegativeInt(char const* c)
         catch (std::invalid_argument) {
                 return -1;
         }
-        // If not all of the input string could converted, then it's the same as
-        // an invalid argument
+        // If not all of the input string could be converted, then it's the same
+        // as an invalid argument
         if (firstUnconverted != paddingAsString.length()) {
                 return -1;
         }
