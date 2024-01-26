@@ -4,6 +4,7 @@
 #include <iostream>
 #include <list>
 #include <stack>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -465,22 +466,80 @@ void calculatePadding(std::string& input,
 
 
 
+void printInfo()
+{
+        std::cout << "moepadding v3.0\n\n";
+        std::cout << "Usage:\n";
+        std::cout << "\tmpad <filename> <padding> [-w]\n\n";
+        std::cout << "Options:\n";
+        std::cout << "\t-w: Overwrite the input file\n\n";
+}
+
+
+
+
+
+/// @brief Converts a zero-terminated string to a nonnegative integer
+/// @param c Not null
+/// @return Nonnegative result on success, -1 if a conversion could not be
+/// performed, or -2 if the input string represented a negative value
+int cStringToNonnegativeInt(char const* c)
+{
+        std::size_t firstUnconverted = 0;
+        std::string const paddingAsString(c);
+        int result = 0;
+        try {
+                result = std::stoi(paddingAsString, &firstUnconverted, 10);
+        }
+        catch (std::invalid_argument) {
+                return -1;
+        }
+        // If not all of the input string could converted, then it's the same as
+        // an invalid argument
+        if (firstUnconverted != paddingAsString.length()) {
+                return -1;
+        }
+        return result >= 0 ? result : -2;
+}
+
+
+
+
+
 int main(int argc, char* argv[])
 {
         // Usage
         //
         // mpad filename padding [-w]
 
+        if (argc > 4) {
+                // Too many arguments
+                printInfo();
+                return EXIT_FAILURE;
+        }
+
         if (argc == 1) {
-                // @Todo Need sanitization of filename
-                std::cout << "Must tell me the filename\n";
+                // No filename given
+                printInfo();
                 return EXIT_FAILURE;
         }
 
         if (argc == 2) {
-                // @Todo Need sanitization of padding argument
-                std::cout << "Must tell me how much padding\n";
+                // No desired padding given
+                printInfo();
                 return EXIT_FAILURE;
+        }
+
+        int const padding = cStringToNonnegativeInt(argv[2]);
+        switch (padding) {
+        case -1: {
+                std::cout << "Invalid padding\n";
+                return EXIT_FAILURE;
+        }
+        case -2: {
+                std::cout << "Padding cannot be negative\n";
+                return EXIT_FAILURE;
+        }
         }
 
         std::FILE* inputFile = openFile(argv[1], "rb");
@@ -498,9 +557,7 @@ int main(int argc, char* argv[])
         outerScopes = siftOuterScopes(sifted);
         StringMarkers scopeMarkers = findScopes(outerScopes);
 
-        std::string const paddingAsString(argv[2]);
         // @Todo Check return value for error handling
-        int const padding = std::stoi(paddingAsString);
         calculatePadding(baseFileContents, outerScopes, scopeMarkers, padding);
         findReplaceAll(baseFileContents, "\r", "");
 
