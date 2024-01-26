@@ -504,24 +504,25 @@ int main(int argc, char* argv[])
         calculatePadding(baseFileContents, outerScopes, scopeMarkers, padding);
         findReplaceAll(baseFileContents, "\r", "");
 
-        std::string outputFilename("moeout");
+        // @Todo Replace with file stream
         if (argc > 3 && std::string(argv[3]) == "-w") {
-                outputFilename = argv[1];
-        }
-        std::FILE* outputFile = openFile(outputFilename.c_str(), "w");
-        if (outputFile == nullptr) {
-                std::cout << "Failed to create output file\n";
-                return EXIT_FAILURE;
-        }
-
-        int writeSuccess = fputs(baseFileContents.c_str(), outputFile);
-        if (writeSuccess < 0) {
-                std::cout << "Failed to write contents to output file\n";
+                // Overwrite input file
+                std::FILE* outputFile = openFile(argv[1], "w");
+                if (outputFile == nullptr) {
+                        std::cout << "Failed to create output file\n";
+                        return EXIT_FAILURE;
+                }
+                int writeSuccess = fputs(baseFileContents.c_str(), outputFile);
                 fclose(outputFile);
-                return EXIT_FAILURE;
+                if (writeSuccess < 0) {
+                        std::cout
+                            << "Failed to write contents to output file\n";
+                        return EXIT_FAILURE;
+                }
         }
-
-        fclose(outputFile);
+        else {
+                std::cout << baseFileContents << "\n";
+        }
 
         return EXIT_SUCCESS;
 }
