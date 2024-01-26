@@ -530,8 +530,8 @@ int main(int argc, char* argv[])
                 return EXIT_FAILURE;
         }
 
-        int const padding = cStringToNonnegativeInt(argv[2]);
-        switch (padding) {
+        int const desiredPadding = cStringToNonnegativeInt(argv[2]);
+        switch (desiredPadding) {
         case -1: {
                 std::cout << "Invalid padding\n";
                 return EXIT_FAILURE;
@@ -558,7 +558,8 @@ int main(int argc, char* argv[])
         StringMarkers scopeMarkers = findScopes(outerScopes);
 
         // @Todo Check return value for error handling
-        calculatePadding(baseFileContents, outerScopes, scopeMarkers, padding);
+        calculatePadding(
+            baseFileContents, outerScopes, scopeMarkers, desiredPadding);
         findReplaceAll(baseFileContents, "\r", "");
 
         // @Todo Replace with file stream
