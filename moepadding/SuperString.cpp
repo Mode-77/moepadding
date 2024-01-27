@@ -11,6 +11,9 @@ SuperString::SuperString(std::string const& string)
         }
 }
 
+
+
+
 void SuperString::find_replace(std::string const& to_find,
                                std::string const& to_replace)
 {
@@ -27,6 +30,9 @@ void SuperString::find_replace(std::string const& to_find,
         }
 }
 
+
+
+
 char const* SuperString::peek() const
 {
         if (is_exhausted()) {
@@ -34,6 +40,9 @@ char const* SuperString::peek() const
         }
         return &m_string.at(m_index);
 }
+
+
+
 
 bool SuperString::test(char c) const
 {
@@ -43,6 +52,9 @@ bool SuperString::test(char c) const
         return m_string.at(m_index) == c;
 }
 
+
+
+
 void SuperString::append_original(std::string& to)
 {
         if (!is_exhausted()) {
@@ -50,6 +62,9 @@ void SuperString::append_original(std::string& to)
                 increment_index();
         }
 }
+
+
+
 
 void SuperString::append_strike(std::string& to, int num_strikes)
 {
@@ -61,10 +76,16 @@ void SuperString::append_strike(std::string& to, int num_strikes)
         }
 }
 
+
+
+
 bool SuperString::is_exhausted() const
 {
         return m_exhausted;
 }
+
+
+
 
 void SuperString::increment_index()
 {
@@ -74,10 +95,16 @@ void SuperString::increment_index()
         }
 }
 
+
+
+
 std::size_t SuperString::length() const
 {
         return m_string.length();
 }
+
+
+
 
 StringMarkers::StringMarkers(std::vector<std::size_t> const& v)
     : m_markers()
@@ -87,15 +114,24 @@ StringMarkers::StringMarkers(std::vector<std::size_t> const& v)
         }
 }
 
+
+
+
 std::size_t StringMarkers::peek() const
 {
         return m_markers.front();
 }
 
+
+
+
 void StringMarkers::pop()
 {
         m_markers.pop_front();
 }
+
+
+
 
 void StringMarkers::shift(int delta)
 {
@@ -103,6 +139,9 @@ void StringMarkers::shift(int delta)
                 m += delta;
         }
 }
+
+
+
 
 bool StringMarkers::empty() const
 {
