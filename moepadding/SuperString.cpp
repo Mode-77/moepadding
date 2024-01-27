@@ -1,5 +1,7 @@
 #include "SuperString.hpp"
 #include <cassert>
+#include <string>
+#include <vector>
 
 SuperString::SuperString(std::string const& string)
     : m_string(string),

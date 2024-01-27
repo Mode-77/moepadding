@@ -21,9 +21,15 @@
     <ClCompile Include="SuperString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="paddingProcess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SuperString.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="paddingProcess.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
