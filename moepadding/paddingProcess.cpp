@@ -1,3 +1,4 @@
+#include "StringMarkers.hpp"
 #include "SuperString.hpp"
 #include <cassert>
 #include <stack>
