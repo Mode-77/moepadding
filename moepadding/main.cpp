@@ -67,7 +67,7 @@ void findReplaceAll(std::string& s,
 
 
 
-void printInfo()
+void printUsage()
 {
         std::cout << "moepadding " << versionString() << "\n\n";
         std::cout << "Usage:\n";
@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
 
         if (!(argc == 3 || argc == 4)) {
                 // Too few or too many arguments
-                printInfo();
+                printUsage();
                 return EXIT_FAILURE;
         }
 
