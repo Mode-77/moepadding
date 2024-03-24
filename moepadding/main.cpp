@@ -1,5 +1,6 @@
 #include "SuperString.hpp"
 #include "paddingProcess.hpp"
+#include "version.h"
 #include <cassert>
 #include <cstdio>
 #include <iostream>
@@ -8,6 +9,20 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+
+std::string versionString()
+{
+        std::string version;
+        version.append(std::to_string(VERSION_MAJOR));
+        version.append(".");
+        version.append(std::to_string(VERSION_MINOR));
+        version.append(".");
+        version.append(std::to_string(VERSION_PATCH));
+        return version;
+}
+
+
+
 
 std::FILE* openFile(char const* filename, char const* mode)
 {
@@ -54,7 +69,7 @@ void findReplaceAll(std::string& s,
 
 void printInfo()
 {
-        std::cout << "moepadding v3.0\n\n";
+        std::cout << "moepadding " << versionString() << "\n\n";
         std::cout << "Usage:\n";
         std::cout << "\tmpad <filename> <padding> [-w]\n\n";
         std::cout << "Options:\n";
