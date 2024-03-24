@@ -119,20 +119,8 @@ int main(int argc, char* argv[])
         //
         // mpad filename padding [-w]
 
-        if (argc > 4) {
-                // Too many arguments
-                printInfo();
-                return EXIT_FAILURE;
-        }
-
-        if (argc == 1) {
-                // No filename given
-                printInfo();
-                return EXIT_FAILURE;
-        }
-
-        if (argc == 2) {
-                // No desired padding given
+        if (!(argc == 3 || argc == 4)) {
+                // Too few or too many arguments
                 printInfo();
                 return EXIT_FAILURE;
         }
