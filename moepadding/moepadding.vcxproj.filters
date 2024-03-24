@@ -27,6 +27,9 @@
     <ClCompile Include="StringMarkers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SuperString.hpp">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="program.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
