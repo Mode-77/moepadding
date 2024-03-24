@@ -84,11 +84,13 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="paddingProcess.cpp" />
+    <ClCompile Include="program.cpp" />
     <ClCompile Include="StringMarkers.cpp" />
     <ClCompile Include="SuperString.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="paddingProcess.hpp" />
+    <ClInclude Include="program.hpp" />
     <ClInclude Include="StringMarkers.hpp" />
     <ClInclude Include="SuperString.hpp" />
     <ClInclude Include="version.h" />

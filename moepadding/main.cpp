@@ -1,14 +1,8 @@
-#include "SuperString.hpp"
-#include "paddingProcess.hpp"
+#include "program.hpp"
 #include "version.h"
-#include <cassert>
-#include <cstdio>
 #include <iostream>
-#include <list>
-#include <stack>
 #include <stdexcept>
 #include <string>
-#include <vector>
 
 std::string versionString()
 {
@@ -24,49 +18,7 @@ std::string versionString()
 
 
 
-std::FILE* openFile(char const* filename, char const* mode)
-{
-        std::FILE* file = nullptr;
-        fopen_s(&file, filename, mode);
-        return file;
-}
-
-
-
-
-std::string extractAll(std::FILE* file)
-{
-        assert(file);
-        std::string result;
-        int character = std::fgetc(file);
-        while (character != EOF) {
-                result += character;
-                character = std::fgetc(file);
-        }
-        return result;
-}
-
-
-
-
-void findReplaceAll(std::string& s,
-                    std::string const& to_find,
-                    std::string const& to_replace)
-{
-        if (to_find == to_replace) {
-                return;
-        }
-        std::size_t found_at = s.find(to_find);
-        while (found_at != std::string::npos) {
-                s.erase(found_at, to_find.length());
-                s.insert(found_at, to_replace);
-                found_at = s.find(to_find, found_at + to_replace.length());
-        }
-}
-
-
-
-
+/// @brief Prints command usage along with program version information
 void printUsage()
 {
         std::cout << "moepadding " << versionString() << "\n\n";
@@ -105,14 +57,6 @@ int cStringToNonnegativeInt(char const* c)
 
 
 
-void restoreNewlines(std::string& s)
-{
-        findReplaceAll(s, "\r", "");
-}
-
-
-
-
 int main(int argc, char* argv[])
 {
         // Usage
@@ -137,37 +81,7 @@ int main(int argc, char* argv[])
         }
         }
 
-        std::FILE* inputFile = openFile(argv[1], "rb");
-        if (inputFile == nullptr) {
-                std::cout << "File couldn't be opened\n";
-                return EXIT_FAILURE;
-        }
-        std::string fileContents(extractAll(inputFile));
-        fclose(inputFile);
+        bool const overwriteFile = argc == 4 && std::string(argv[3]) == "-w";
 
-        doPadding(fileContents, desiredPadding);
-
-        restoreNewlines(fileContents);
-
-        // @Todo Replace with file stream
-        if (argc > 3 && std::string(argv[3]) == "-w") {
-                // Overwrite input file
-                std::FILE* outputFile = openFile(argv[1], "w");
-                if (outputFile == nullptr) {
-                        std::cout << "Failed to create output file\n";
-                        return EXIT_FAILURE;
-                }
-                int writeSuccess = fputs(fileContents.c_str(), outputFile);
-                fclose(outputFile);
-                if (writeSuccess < 0) {
-                        std::cout
-                            << "Failed to write contents to output file\n";
-                        return EXIT_FAILURE;
-                }
-        }
-        else {
-                std::cout << fileContents << "\n";
-        }
-
-        return EXIT_SUCCESS;
+        return program(argv[1], desiredPadding, overwriteFile);
 }
