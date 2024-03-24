@@ -91,6 +91,7 @@
     <ClInclude Include="paddingProcess.hpp" />
     <ClInclude Include="StringMarkers.hpp" />
     <ClInclude Include="SuperString.hpp" />
+    <ClInclude Include="version.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
