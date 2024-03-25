@@ -399,3 +399,6 @@ FodyWeavers.xsd
 
 # Code Spell Checker configuration
 cspell.json
+
+# Git Hound configuration
+.githound.yml
